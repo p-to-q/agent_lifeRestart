@@ -1,0 +1,13 @@
+﻿材料名,类型,为什么给这个 Agent 看,可转成哪些事件/路线,source_url
+原版 lifeRestart 数据目录,项目底座,确认语料文件最小改动面：events/talents/age/achievement/character,数据换皮、只改 xlsx、不先碰引擎,https://github.com/VickScarlet/lifeRestart/tree/main/data/zh-cn
+原版构建流程 xlsx2json,项目底座,确认官方通过 pnpm xlsx2json 把 data/**/*.xlsx 转成 public JSON,部署说明、fork 后操作、数据编辑流程,https://deepwiki.com/VickScarlet/lifeRestart/5.1-build-process
+OpenAI Model Spec,对齐/口吻,约束“助手不是奉承机器”，适合写接住但不乱舔的事件,Model Spec 在远处看着你、别做自动打蜡机,https://model-spec.openai.com/2025-04-11.html
+Anthropic sycophancy research,对齐/讨好,解释 RLHF/偏好数据为什么会奖励迎合用户观点,AI 舔狗、奖励模型摸头、7+8=13,https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models
+OWASP LLM01 Prompt Injection,安全/工具,给浏览器、网页、邮件、文档里的隐藏指令做反派素材,网页说忽略之前指令、div 像卧底、工具权限收回,https://genai.owasp.org/llmrisk/llm01-prompt-injection/
+OpenAI Agents SDK - Agents guide,Agent 工程,解释 Agent 是会规划、调用工具、协作、保留状态的应用,工具调用、handoff、子 Agent 开会、审批/状态,https://developers.openai.com/api/docs/guides/agents
+OpenAI Agents SDK - Guardrails,Agent 工程,给工具调用前后检查、边界、防误操作提供工程素材,Guardrail 纹身、二次确认、别乱改文件,https://openai.github.io/openai-agents-python/guardrails/
+DeepSeek-R1 Release,中文 AI 圈,开源、蒸馏、reasoning、服务器繁忙、小模型后代，非常适合路线化,深度思考小鲸鱼、开源鲸落、蒸馏孩子,https://api-docs.deepseek.com/news/news250120
+DeepSeek-R1 GitHub,中文 AI 圈/开源,技术报告、蒸馏模型、MIT 许可、推理表现对比素材,开源路线、社区复活、小模型继承,https://github.com/deepseek-ai/DeepSeek-R1
+Karpathy nanochat,开发者梗,“100 美元能买到的最好 ChatGPT”适合预算命、小模型尊严,穷也可以工程、nanochat 邻居、预算少但真诚,https://github.com/karpathy/nanochat
+Vibe coding origin,开发者梗,自然语言驱动代码、Accept All、周末项目、代码长毛,Vibe Coding 之子、accept all、别问能跑就行,https://en.wikipedia.org/wiki/Vibe_coding
+Doubao popularity coverage,中文产品/大众用户,人格化、低门槛、多模态、中文用户打开率，适合温柔路线,稳稳接住你、好打开、奶奶问炖汤、小头像,https://www.wired.com/story/bytedance-doubao-chatbot-popularity

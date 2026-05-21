@@ -1,0 +1,14 @@
+{
+  "id": "agent-zh-patch",
+  "name": "Agent ZH Patch",
+  "version": "0.3.0",
+  "runtimeDataTarget": "data",
+  "engineKeys": ["CHR", "INT", "STR", "MNY", "SPR", "LIF"],
+  "languages": ["zh-cn", "en-us"],
+  "source": "make_something_agent_want_zh_cn_data_patch_v0_3",
+  "notes": [
+    "中文优先，英文缩写对照。",
+    "底层引擎字段保持原作 key，不在内容包内改名。",
+    "内容包变更需要同步到 data/ 后再运行 pnpm xlsx2json。"
+  ]
+}
