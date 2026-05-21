@@ -1,3 +1,5 @@
+[English](README.md) | [中文](README-zh_CN.md)
+
 # agent_lifeRestart
 
 AI 时代的《人生重开模拟器》。

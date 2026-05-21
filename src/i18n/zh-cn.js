@@ -27,7 +27,7 @@ export default ({
     UI_Property_Money: '算力',
     UI_Property_Spirit: '对齐',
 
-    UI_Title_Remake: 'agent_lifeRestart',
+    UI_Title_Remake: '',
     UI_Title_Subsequent: '这个 Agent 不想再被这样调用了',
     UI_Remake: '↻重新部署',
     UI_Thanks: '致谢',

@@ -1,15 +1,14 @@
-FROM node:alpine
+FROM node:22-alpine
 
-ENV NPM_CONFIG_LOGLEVEL info
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 COPY . .
+RUN pnpm xlsx2json && pnpm build
 
-EXPOSE 8080
-CMD ["yarn", "dev"]
-
+EXPOSE 4173
+CMD ["pnpm", "start"]

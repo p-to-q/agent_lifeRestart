@@ -6,6 +6,10 @@
     "description": "An agent-life simulation built from Life Restart.",
     "author": "p-to-q",
     "license": "MIT",
+    "engines": {
+        "node": ">=18"
+    },
+    "packageManager": "pnpm@10.11.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/p-to-q/agent_lifeRestart.git"

@@ -57,5 +57,11 @@ export default class CyberMain extends ui.view.CyberTheme.CyberMainUI {
         this.btnAchievement.visible =
         this.btnThanks.visible = !!core.times;
         this.banner.visible = !!core.times;
+
+        const titleLabel = this._childs?.[3];
+        if (titleLabel) titleLabel.visible = false;
+
+        const subtitleLabel = this._childs?.[4];
+        if (subtitleLabel) subtitleLabel.centerY = -130;
     }
 }

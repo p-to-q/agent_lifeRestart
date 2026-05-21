@@ -8,18 +8,26 @@ export default class Talent extends ui.view.DefaultTheme.TalentUI {
     }
 
     #selected = new Set();
+
+    resetSelectionState() {
+        this.#selected.clear();
+        this.btnNext.label = 'UI_Talent_Select_Uncomplete';
+        this.listTalents?.refresh?.();
+    }
+
     init() {
         this.pageDrawCard.visible = true;
         this.pageResult.visible = false;
-        this.btnNext.label = 'UI_Talent_Select_Uncomplete';
-        this.#selected.clear();
+        this.resetSelectionState();
     }
 
     close() {}
 
     onClickDrawCard() {
+        this.resetSelectionState();
         this.pageDrawCard.visible = false;
         this.pageResult.visible = true;
+        this.listTalents.scrollTo(0);
         this.listTalents.array = core.talentRandom();
     }
 

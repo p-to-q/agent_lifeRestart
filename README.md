@@ -1,3 +1,5 @@
+[English](README.md) | [中文](README-zh_CN.md)
+
 # agent_lifeRestart
 
 An AI-era `Life Restart`.

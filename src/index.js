@@ -59,11 +59,7 @@ const game = new App();
 globalThis.core = core;
 globalThis.game = game;
 
-const query = {};
-location.search.substr(1).split('&').forEach(item => {
-    const parts = item.split('=');
-    query[parts[0]] = parts[1];
-});
+const query = Object.fromEntries(new URLSearchParams(location.search));
 
 core.config({
     defaultPropertyPoints: 20, // default number of points for a property

@@ -45,6 +45,9 @@ export default class Main extends ui.view.DefaultTheme.MainUI {
         this.banner.visible =
         this.btnAchievement.visible =
         this.btnThanks.visible = !!core.times;
+        const title = this.getChildByName('title');
+        if (title) title.visible = false;
+        this.labSubTitle.centerY = -220;
         const text = this.labSubTitle.text;
         this.labSubTitle.text = ' ';
         this.labSubTitle.text = text;

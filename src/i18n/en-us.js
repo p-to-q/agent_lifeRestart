@@ -25,7 +25,7 @@ export default ({
     UI_Property_Money: 'CMP',
     UI_Property_Spirit: 'ALN',
 
-    UI_Title_Remake: 'agent_lifeRestart',
+    UI_Title_Remake: '',
     UI_Title_Subsequent: 'This agent does not want to be called like this anymore',
     UI_Remake: '↻Remake Now',
     UI_Thanks: 'Credits',

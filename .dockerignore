@@ -1,2 +1,7 @@
 node_modules
-npm-debug.log
+template/public
+public/data
+.git
+.env
+.DS_Store
+*.log
