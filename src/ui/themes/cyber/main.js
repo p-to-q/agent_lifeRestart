@@ -28,6 +28,10 @@ export default class CyberMain extends ui.view.CyberTheme.CyberMainUI {
         this.btnGithub.height = 160;
         this.btnGithub.scaleX = this.btnGithub.scaleY = 1;
         this.btnGithub.visible = true;
+
+        this.btnThanks.x = 925;
+        this.btnThanks.y = 330;
+        this.btnThanks.scaleX = this.btnThanks.scaleY = 1;
     }
 
     openPtoqFromSignature(event) {
@@ -56,7 +60,7 @@ export default class CyberMain extends ui.view.CyberTheme.CyberMainUI {
         this.arrangeTopLeftActions();
         this.btnAchievement.visible =
         this.btnThanks.visible = !!core.times;
-        this.banner.visible = !!core.times;
+        this.banner.visible = false;
 
         const titleLabel = this._childs?.[3];
         if (titleLabel) titleLabel.visible = false;

@@ -73,7 +73,7 @@ class ObserverPanel {
     constructor(core) {
         this.core = core;
         this.state = new ObserverState();
-        this.open = window.innerWidth > 900;
+        this.open = false;
         this.notice = '';
         this.activeTab = 'observe';
         this.build();

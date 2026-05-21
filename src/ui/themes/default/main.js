@@ -24,6 +24,11 @@ export default class Main extends ui.view.DefaultTheme.MainUI {
         this.btnGithub.height = 110;
         this.btnGithub.scaleX = this.btnGithub.scaleY = 1;
         this.btnGithub.visible = true;
+
+        this.btnThanks.right = NaN;
+        this.btnThanks.top = NaN;
+        this.btnThanks.x = 945;
+        this.btnThanks.y = 310;
     }
 
     openPtoqFromSignature(event) {
@@ -42,7 +47,7 @@ export default class Main extends ui.view.DefaultTheme.MainUI {
     init() {
         this.btnDiscord.visible = false;
         this.arrangeTopLeftActions();
-        this.banner.visible =
+        this.banner.visible = false;
         this.btnAchievement.visible =
         this.btnThanks.visible = !!core.times;
         const title = this.getChildByName('title');
