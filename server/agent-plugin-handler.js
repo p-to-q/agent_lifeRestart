@@ -425,14 +425,6 @@ function extractJson(content) {
 
 async function callProvider(provider, mode, payload) {
     const responseFormats = [
-        {
-            type: 'json_schema',
-            json_schema: {
-                name: `agent_${mode}`,
-                strict: true,
-                schema: responseSchema(mode),
-            },
-        },
         { type: 'json_object' },
         null,
     ];
