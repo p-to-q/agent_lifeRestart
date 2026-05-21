@@ -1,0 +1,11 @@
+agent_lifeRestart
+
+This project is an independent p-to-q product fork built from Life Restart.
+
+Life Restart was originally created by Vick Scarlet and contributors under the MIT License.
+The original upstream project is available at:
+https://github.com/VickScarlet/lifeRestart
+
+This repository keeps the original license and preserves upstream attribution while evolving the product direction, content pack, and extension architecture independently.
+
+Additional product and upstream credits are maintained in docs/CREDITS.md.
