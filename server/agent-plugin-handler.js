@@ -39,15 +39,15 @@ function providers() {
     return [
         {
             name: 'primary',
-            baseUrl: env('AGENT_AI_BASE_URL'),
-            model: env('AGENT_AI_MODEL'),
-            key: env('AGENT_AI_KEY'),
+            baseUrl: env('ALEPH_CUSTOM_API_BASE_URL'),
+            model: env('ALEPH_CUSTOM_API_MODEL'),
+            key: env('ALEPH_CUSTOM_API_KEY'),
         },
         {
             name: 'fallback',
-            baseUrl: env('AGENT_AI_FALLBACK_BASE_URL'),
-            model: env('AGENT_AI_FALLBACK_MODEL'),
-            key: env('AGENT_AI_FALLBACK_KEY'),
+            baseUrl: env('ALEPH_CUSTOM_API_FALLBACK_BASE_URL'),
+            model: env('ALEPH_CUSTOM_API_FALLBACK_MODEL'),
+            key: env('ALEPH_CUSTOM_API_FALLBACK_KEY'),
         },
     ].filter(item => item.baseUrl && item.model && item.key);
 }
@@ -424,27 +424,28 @@ function extractJson(content) {
 }
 
 async function callProvider(provider, mode, payload) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
-    try {
-        const responseFormats = [
-            {
-                type: 'json_schema',
-                json_schema: {
-                    name: `agent_${mode}`,
-                    strict: true,
-                    schema: responseSchema(mode),
-                },
+    const responseFormats = [
+        {
+            type: 'json_schema',
+            json_schema: {
+                name: `agent_${mode}`,
+                strict: true,
+                schema: responseSchema(mode),
             },
-            { type: 'json_object' },
-            null,
-        ];
+        },
+        { type: 'json_object' },
+        null,
+    ];
 
-        let lastError;
-        for (const response_format of responseFormats) {
+    let lastError;
+    for (const response_format of responseFormats) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
+        try {
             const body = {
                 model: provider.model,
                 temperature: mode === 'candidates' ? 0.85 : 0.72,
+                stream: false,
                 messages: [
                     { role: 'system', content: systemPrompt(mode) },
                     { role: 'user', content: userPrompt(mode, payload) },
@@ -485,11 +486,13 @@ async function callProvider(provider, mode, payload) {
                     model: provider.model,
                 },
             };
+        } catch (error) {
+            lastError = error;
+        } finally {
+            clearTimeout(timeout);
         }
-        throw lastError || new Error(`Provider ${provider.name} failed`);
-    } finally {
-        clearTimeout(timeout);
     }
+    throw lastError || new Error(`Provider ${provider.name} failed`);
 }
 
 export async function handleAgentPluginRequest(req, res) {

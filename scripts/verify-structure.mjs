@@ -219,7 +219,7 @@ for (const phrase of ['AI 插件', '再讲一点', '补支线', '补死法', '�
 }
 
 const aiPluginApi = read('server/agent-plugin-handler.js');
-for (const phrase of ['AGENT_AI_BASE_URL', 'AGENT_AI_FALLBACK_BASE_URL', 'chat/completions', 'json_schema', 'snapshot', 'expand', 'death']) {
+for (const phrase of ['ALEPH_CUSTOM_API_BASE_URL', 'ALEPH_CUSTOM_API_FALLBACK_BASE_URL', 'chat/completions', 'json_schema', 'snapshot', 'expand', 'death']) {
     if (!aiPluginApi.includes(phrase)) fail(`AI plugin API missing server-side provider handling: ${phrase}`);
 }
 
