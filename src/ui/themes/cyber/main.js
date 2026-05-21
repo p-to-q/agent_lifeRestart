@@ -29,6 +29,8 @@ export default class CyberMain extends ui.view.CyberTheme.CyberMainUI {
         this.btnGithub.scaleX = this.btnGithub.scaleY = 1;
         this.btnGithub.visible = true;
 
+        this.btnThanks.right = NaN;
+        this.btnThanks.top = NaN;
         this.btnThanks.x = 925;
         this.btnThanks.y = 330;
         this.btnThanks.scaleX = this.btnThanks.scaleY = 1;
