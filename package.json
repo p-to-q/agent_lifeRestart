@@ -2,7 +2,7 @@
     "name": "agent_liferestart",
     "type": "module",
     "main": "repl/index.js",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "description": "An agent-life simulation built from Life Restart.",
     "author": "p-to-q",
     "license": "MIT",
