@@ -14,25 +14,47 @@ export default class CyberMain extends ui.view.CyberTheme.CyberMainUI {
                 this.height / this.imgBg.height
             );
             this.imgBg.scale(scale, scale);
+            this.arrangeTopLeftActions();
         });
     }
 
+    dockToView(btn) {
+        if (btn.parent !== this) this.addChild(btn);
+        btn.left = NaN;
+        btn.right = NaN;
+        btn.top = NaN;
+        btn.bottom = NaN;
+        btn.centerX = NaN;
+        btn.centerY = NaN;
+    }
+
     arrangeTopLeftActions() {
-        this.btnSaveLoad.x = 0;
-        this.btnSaveLoad.y = 0;
+        const stageWidth = Laya.stage.width || this.width || 1125;
+        const leftCenter = 120;
+        const rightCenter = stageWidth - 200;
+
+        this.dockToView(this.btnSaveLoad);
+        this.btnSaveLoad.x = leftCenter;
+        this.btnSaveLoad.y = 200;
         this.btnSaveLoad.scaleX = this.btnSaveLoad.scaleY = 1;
 
-        this.btnGithub.x = 167.5;
-        this.btnGithub.y = 370;
+        this.dockToView(this.btnGithub);
+        this.btnGithub.rotation = 0;
         this.btnGithub.width = 160;
         this.btnGithub.height = 160;
+        this.btnGithub.x = leftCenter;
+        this.btnGithub.y = 380;
         this.btnGithub.scaleX = this.btnGithub.scaleY = 1;
         this.btnGithub.visible = true;
 
-        this.btnThanks.right = NaN;
-        this.btnThanks.top = NaN;
-        this.btnThanks.x = 925;
-        this.btnThanks.y = 330;
+        this.dockToView(this.btnAchievement);
+        this.btnAchievement.x = rightCenter;
+        this.btnAchievement.y = 200;
+        this.btnAchievement.scaleX = this.btnAchievement.scaleY = 1;
+
+        this.dockToView(this.btnThanks);
+        this.btnThanks.x = rightCenter;
+        this.btnThanks.y = 320;
         this.btnThanks.scaleX = this.btnThanks.scaleY = 1;
     }
 
