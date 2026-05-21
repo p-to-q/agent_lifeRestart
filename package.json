@@ -1,0 +1,28 @@
+{
+    "name": "agent_liferestart",
+    "type": "module",
+    "main": "repl/index.js",
+    "version": "2.1.0",
+    "description": "An agent-life simulation built from Life Restart.",
+    "author": "p-to-q",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/p-to-q/agent_lifeRestart.git"
+    },
+    "scripts": {
+        "xlsx2json": "vt transform -d public \"data/**/*.xlsx\"",
+        "dev": "vite",
+        "prebuild": "vt transform -d public \"data/**/*.xlsx\"",
+        "build": "vite build",
+        "start": "vite preview",
+        "test": "vitest",
+        "verify:structure": "node scripts/verify-structure.mjs",
+        "verify": "pnpm test && pnpm build && pnpm verify:structure"
+    },
+    "devDependencies": {
+        "v-transform": "^2.2.1",
+        "vite": "^8.0.5",
+        "vitest": "^4.1.2"
+    }
+}
