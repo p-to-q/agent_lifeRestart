@@ -57,3 +57,12 @@
 ## Shipping Rule
 
 Changes become runtime-visible only after the relevant data is synced into `data/` and converted through `pnpm xlsx2json`.
+
+Recommended shipping flow:
+
+```bash
+pnpm build:content-pack-data
+pnpm sync:content-pack
+pnpm xlsx2json
+pnpm verify
+```

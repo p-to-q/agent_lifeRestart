@@ -77,6 +77,8 @@ See:
 
 ```bash
 pnpm install
+pnpm build:content-pack-data
+pnpm sync:content-pack
 pnpm xlsx2json
 pnpm dev
 ```

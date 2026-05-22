@@ -109,6 +109,8 @@ AI 时代的《人生重开模拟器》。
 
 ```bash
 pnpm install
+pnpm build:content-pack-data
+pnpm sync:content-pack
 pnpm xlsx2json
 pnpm dev
 ```

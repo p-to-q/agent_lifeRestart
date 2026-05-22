@@ -12,7 +12,7 @@ This runs:
 
 - unit tests for core rule behavior;
 - production build, including xlsx-to-json conversion;
-- structure checks for docs, content packs, and extension boundaries.
+- structure checks for docs, content packs, runtime-data sync, and extension boundaries.
 
 ## Manual Smoke Checks
 
@@ -22,7 +22,7 @@ Before merging UI or extension changes, run the app locally and check:
 - `?observer=off` starts without the observer panel;
 - `?ai=off` starts without the left-side AI plugin;
 - the default and cyber themes can reach talent, property, trajectory, and summary views;
-- content changes are reflected only after `pnpm xlsx2json` or `pnpm build`.
+- content changes are reflected only after `pnpm build:content-pack-data`, `pnpm sync:content-pack`, and `pnpm xlsx2json` or `pnpm build`.
 
 ## Current Acceptance Bar
 
@@ -30,4 +30,5 @@ Before merging UI or extension changes, run the app locally and check:
 - Observer stays in `extensions/agent-observer`.
 - AI plugin stays in `extensions/agent-ai-plugin` and reaches models only through `/api/agent-plugin`.
 - Runtime data still builds into `public/data`.
+- Shipped content-pack spreadsheets stay in sync with runtime `data/`.
 - README, architecture, roadmap, decisions, and maintenance docs stay in sync with product direction.

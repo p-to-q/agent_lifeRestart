@@ -1,5 +1,8 @@
-import { existsSync, readFileSync, lstatSync, readdirSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, lstatSync, readdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
+import { tmpdir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 
 const root = new URL('..', import.meta.url).pathname;
 const errors = [];
@@ -16,6 +19,10 @@ function read(path) {
     return readFileSync(join(root, path), 'utf8');
 }
 
+function readBuffer(path) {
+    return readFileSync(join(root, path));
+}
+
 function walk(dir) {
     const full = join(root, dir);
     if (!existsSync(full)) return [];
@@ -24,6 +31,42 @@ function walk(dir) {
         const path = join(dir, item);
         const stat = lstatSync(join(root, path));
         if (stat.isDirectory()) out.push(...walk(path));
+        else if (stat.isFile()) out.push(path);
+    }
+    return out;
+}
+
+function sha1(path) {
+    return createHash('sha1').update(readBuffer(path)).digest('hex');
+}
+
+function unzipWorkbookXml(path) {
+    return execFileSync('unzip', ['-p', join(root, path), 'xl/workbook.xml'], { encoding: 'utf8' });
+}
+
+function exportFirstSheetAsJson(path) {
+    const tempDir = mkdtempSync(join(tmpdir(), 'agent-verify-'));
+    try {
+        const tempSource = join(tempDir, path.split('/').pop());
+        copyFileSync(join(root, path), tempSource);
+        execFileSync('pnpm', ['exec', 'vt', 'transform', '-d', tempDir, tempSource], { stdio: 'ignore' });
+        const exported = walkFrom(tempDir).find(file => file.endsWith('.json'));
+        if (!exported) {
+            throw new Error(`No JSON export generated for ${path}`);
+        }
+        return createHash('sha1').update(readFileSync(exported)).digest('hex');
+    } finally {
+        rmSync(tempDir, { recursive: true, force: true });
+    }
+}
+
+function walkFrom(dir) {
+    if (!existsSync(dir)) return [];
+    const out = [];
+    for (const item of readdirSync(dir)) {
+        const path = join(dir, item);
+        const stat = lstatSync(path);
+        if (stat.isDirectory()) out.push(...walkFrom(path));
         else if (stat.isFile()) out.push(path);
     }
     return out;
@@ -219,8 +262,37 @@ for (const phrase of ['AI 插件', '再讲一点', '补支线', '补死法', '�
 }
 
 const aiPluginApi = read('server/agent-plugin-handler.js');
-for (const phrase of ['ALEPH_CUSTOM_API_BASE_URL', 'ALEPH_CUSTOM_API_FALLBACK_BASE_URL', 'chat/completions', 'json_schema', 'snapshot', 'expand', 'death']) {
+for (const phrase of ['ALEPH_CUSTOM_API_BASE_URL', 'ALEPH_CUSTOM_API_FALLBACK_BASE_URL', 'chat/completions', 'json_object', 'snapshot', 'expand', 'death']) {
     if (!aiPluginApi.includes(phrase)) fail(`AI plugin API missing server-side provider handling: ${phrase}`);
+}
+
+const contentPackRuntimePairs = [
+    ['content/agent-zh-patch/data/zh-cn/achievement.xlsx', 'data/zh-cn/achievement.xlsx'],
+    ['content/agent-zh-patch/data/zh-cn/age.xlsx', 'data/zh-cn/age.xlsx'],
+    ['content/agent-zh-patch/data/zh-cn/character.xlsx', 'data/zh-cn/character.xlsx'],
+    ['content/agent-zh-patch/data/zh-cn/events.xlsx', 'data/zh-cn/events.xlsx'],
+    ['content/agent-zh-patch/data/zh-cn/talents.xlsx', 'data/zh-cn/talents.xlsx'],
+    ['content/agent-zh-patch/data/en-us/achievement.xlsx', 'data/en-us/achievement.xlsx'],
+    ['content/agent-zh-patch/data/en-us/age.xlsx', 'data/en-us/age.xlsx'],
+    ['content/agent-zh-patch/data/en-us/character.xlsx', 'data/en-us/character.xlsx'],
+    ['content/agent-zh-patch/data/en-us/events.xlsx', 'data/en-us/events.xlsx'],
+    ['content/agent-zh-patch/data/en-us/talents.xlsx', 'data/en-us/talents.xlsx'],
+];
+
+for (const [packPath, runtimePath] of contentPackRuntimePairs) {
+    if (!existsSync(join(root, packPath)) || !existsSync(join(root, runtimePath))) {
+        fail(`Missing content/runtime sync pair: ${packPath} -> ${runtimePath}`);
+        continue;
+    }
+    const expectedSheetName = runtimePath.split('/').pop().replace(/\.xlsx$/, '');
+    const workbookXml = unzipWorkbookXml(runtimePath);
+    if (!workbookXml.includes(`name="${expectedSheetName}"`)) {
+        fail(`Runtime workbook sheet name mismatch: ${runtimePath} should expose sheet ${expectedSheetName}. Run pnpm sync:content-pack.`);
+        continue;
+    }
+    if (exportFirstSheetAsJson(packPath) !== exportFirstSheetAsJson(runtimePath)) {
+        fail(`Runtime data is out of sync with content pack: ${runtimePath}. Run pnpm sync:content-pack.`);
+    }
 }
 
 for (const file of ['src/ui/themes/cyber/main.js', 'src/ui/themes/default/main.js']) {

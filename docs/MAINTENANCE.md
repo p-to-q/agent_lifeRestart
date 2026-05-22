@@ -13,7 +13,10 @@
 
 - Author source material under `content/agent-zh-patch`.
 - Keep the content-pack manifest aligned with shipped corpus changes.
+- Use `pnpm build:content-pack-data` after editing content-pack csv sources.
 - Sync runtime `data` only when the pack is ready to ship.
+- Use `pnpm sync:content-pack` to copy the shipped pack into runtime `data/`.
+- After syncing, run `pnpm xlsx2json` and `pnpm verify`.
 - Record notable corpus shifts in the content pack notes.
 
 ## Extension Updates

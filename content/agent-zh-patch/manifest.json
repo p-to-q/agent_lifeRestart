@@ -1,7 +1,7 @@
 {
   "id": "agent-zh-patch",
   "name": "Agent ZH Patch",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "runtimeDataTarget": "data",
   "engineKeys": ["CHR", "INT", "STR", "MNY", "SPR", "LIF"],
   "languages": ["zh-cn", "en-us"],
