@@ -169,10 +169,14 @@ class App {
         await this.#setLanguage(language);
         await $ui.setLoading(UI.pages.LOADING);
         await $ui.switchView(UI.pages.LOADING);
-        await core.initial(
-            dataSet => Laya.promises.loader.load(`data/${this.#language}/${dataSet}.json`, null, Laya.Loader.JSON),
-            dataSet => Laya.promises.loader.load(`data/${dataSet}.json`, null, Laya.Loader.JSON),
-        );
+        try {
+            await core.initial(
+                dataSet => Laya.promises.loader.load(`data/${this.#language}/${dataSet}.json`, null, Laya.Loader.JSON),
+                dataSet => Laya.promises.loader.load(`data/${dataSet}.json`, null, Laya.Loader.JSON),
+            );
+        } catch (error) {
+            console.error('[App] core.initial failed:', error);
+        }
         await $ui.switchView(UI.pages.MAIN);
 
     }

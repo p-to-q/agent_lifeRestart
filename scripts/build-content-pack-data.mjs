@@ -4,7 +4,8 @@ import { execFileSync } from 'node:child_process';
 
 const root = new URL('..', import.meta.url).pathname;
 const python = process.env.CODEX_BUNDLED_PYTHON
-    || '/Users/dujiayi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3';
+    || process.env.PYTHON
+    || 'python3';
 
 const jobs = [
     ['content/agent-zh-patch/csv/achievement.csv', 'content/agent-zh-patch/data/zh-cn/achievement.xlsx'],

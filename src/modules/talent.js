@@ -21,15 +21,20 @@ class Talent {
                 const ex = talent.exclusive.filter(v => v !== '' && v != null);
                 talent.exclusive = ex.length ? ex : undefined;
             }
-            if(talent.replacement) {
+            if(talent.replacement && typeof talent.replacement === 'object') {
                 for(let key in talent.replacement) {
+                    const entries = talent.replacement[key];
+                    if(!Array.isArray(entries)) continue;
                     const obj = {};
-                    for(let value of talent.replacement[key]) {
+                    for(let value of entries) {
                         value = `${value}`.split('*');
                         obj[value[0]||0] = Number(value[1]) || 1;
                     }
                     talent.replacement[key] = obj;
                 }
+            } else if(talent.replacement) {
+                console.warn(`[Talent] ignoring malformed replacement for talent ${id}:`, talent.replacement);
+                talent.replacement = undefined;
             }
         }
         return this.count;
